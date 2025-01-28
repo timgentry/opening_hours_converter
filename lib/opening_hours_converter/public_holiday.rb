@@ -75,6 +75,10 @@ module OpeningHoursConverter
       easter(year) - days(2)
     end
 
+    def self.saint_etienne(year = Time.now.year)
+      Time.new(year, 12, 26)
+    end
+
     def self.rise(year = Time.now.year)
       easter(year) + days(39)
     end
@@ -91,6 +95,7 @@ module OpeningHoursConverter
       ph = []
       ph << new_year(year)
       ph << good_friday(year)
+      ph << saint_etienne(year)
       ph << easter(year)
       ph << easter_monday(year)
       ph << work_day(year)
