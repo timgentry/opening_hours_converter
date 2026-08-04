@@ -4,15 +4,18 @@ on: [push, pull_request]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     strategy:
       fail-fast: false
       matrix:
-        ruby-version:
-          - '3.2'
-          - '3.3'
-          - '3.4'
+        include:
+          # ruby/setup-ruby ships no 2.6 build for ubuntu-24.04, so that row
+          # needs the older runner.
+          - { ruby-version: '2.6.9', os: ubuntu-22.04 }
+          - { ruby-version: '3.2', os: ubuntu-latest }
+          - { ruby-version: '3.3', os: ubuntu-latest }
+          - { ruby-version: '3.4', os: ubuntu-latest }
 
     steps:
     - uses: actions/checkout@v6.0.1
